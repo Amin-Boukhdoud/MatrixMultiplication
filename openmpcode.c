@@ -7,13 +7,15 @@ int A[N][N], B[N][N], C[N][N];
 
 void multiply() {
     #pragma omp parallel for
-    for(int i = 0; i < N; i++) {
-        for(int j = 0; j < N; j++) {
-            float cij = C[i][j];
-            for(int k = 0; k < N; k++) {
-                cij += A[i][k] * B[k][j];
+    {
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < N; j++) {
+                float cij = C[i][j];
+                for(int k = 0; k < N; k++) {
+                    cij += A[i][k] * B[k][j];
+                }
+                C[i][j] = cij;
             }
-            C[i][j] = cij;
         }
     }
 }
